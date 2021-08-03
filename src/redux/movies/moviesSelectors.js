@@ -14,3 +14,8 @@ export const selectTrailerUrl = createSelector(
   [selectMovies],
   movies => movies.trailerUrl
 );
+
+export const selecIsFetched = createSelector(
+  [selectMovies],
+  movies => movies.isFetched
+);

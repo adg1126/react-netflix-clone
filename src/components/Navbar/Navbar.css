@@ -16,4 +16,5 @@
 .nav_logo {
   width: 80px;
   object-fit: contain;
+  cursor: pointer;
 }

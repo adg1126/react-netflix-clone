@@ -7,17 +7,20 @@ import {
   select
 } from 'redux-saga/effects';
 import _ from 'lodash';
-import { baseUrl } from '../../baseurls';
+import { baseUrl } from '../../utils/baseurls';
+import movieTrailer from 'movie-trailer';
 import {
   fetchMoviesSuccess,
   fetchMoviesFailure,
-  fetchbannerMovieSuccess,
-  fetchbannerMovieFailure
+  fetchBannerMovieSuccess,
+  fetchBannerMovieFailure,
+  fetchUrlTrailerSuccess
 } from './moviesActions';
 import {
   FETCH_MOVIES_START,
   FETCH_BANNER_MOVIE_START,
-  FETCH_MOVIES_SUCCESS
+  FETCH_MOVIES_SUCCESS,
+  FETCH_TRAILER_URL_START
 } from './moviesActionTypes';
 import { selectMovieType } from './moviesSelectors';
 
@@ -52,9 +55,9 @@ function* fetchbannerMovieAsync() {
   const moviesArr = yield select(selectMovieType('netflixOriginals'));
 
   if (!_.isEmpty(moviesArr)) {
-    yield put(fetchbannerMovieSuccess(_.sample(moviesArr)));
+    yield put(fetchBannerMovieSuccess(_.sample(moviesArr)));
   } else {
-    yield put(fetchbannerMovieFailure('Failed to fetch movie'));
+    yield put(fetchBannerMovieFailure('Failed to fetch movie'));
   }
 }
 
@@ -65,6 +68,23 @@ function* fetchBannerMovieStart() {
   );
 }
 
+function* fetchTrailerUrlAsync({ payload: movieTitle }) {
+  try {
+    const url = yield movieTrailer(movieTitle);
+    yield put(fetchUrlTrailerSuccess(url.slice(url.lastIndexOf('=') + 1)));
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+function* fetchTrailerUrlStart() {
+  yield takeEvery([FETCH_TRAILER_URL_START], fetchTrailerUrlAsync);
+}
+
 export function* moviesSagas() {
-  yield all([call(fetchMoviesStart), call(fetchBannerMovieStart)]);
+  yield all([
+    call(fetchMoviesStart),
+    call(fetchBannerMovieStart),
+    call(fetchTrailerUrlStart)
+  ]);
 }

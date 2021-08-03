@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { imgBaseUrl } from '../../baseurls';
+import { imgBaseUrl } from '../../utils/baseurls';
 import './Banner.css';
 
-export default function Banner({ fetchbannerMovieStart, bannerMovie }) {
+export default function Banner({ fetchBannerMovieStart, bannerMovie }) {
   useEffect(() => {
-    fetchbannerMovieStart();
-  }, [fetchbannerMovieStart]);
+    fetchBannerMovieStart();
+  }, [fetchBannerMovieStart]);
 
   const truncate = (str, n) =>
     str?.length > n ? `${str.substr(0, n - 1)}...` : str;
@@ -26,8 +26,9 @@ export default function Banner({ fetchbannerMovieStart, bannerMovie }) {
             bannerMovie?.original_name}
         </h1>
         <div className='banner_buttons'>
-          <button className='banner_button'>Play</button>
-          <button className='banner_button'>My List</button>
+          <a href='#movies_container' className='banner_button'>
+            View Library
+          </a>
         </div>
         <div className='banner_description'>
           {truncate(bannerMovie?.overview, 150)}

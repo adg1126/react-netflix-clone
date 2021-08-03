@@ -46,6 +46,10 @@
   transition: all 0.2s;
 }
 
+a {
+  text-decoration: none;
+}
+
 .banner--fadeBottom {
   height: 7.4rem;
   background-image: linear-gradient(

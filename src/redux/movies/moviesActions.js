@@ -5,7 +5,8 @@ import {
   FETCH_BANNER_MOVIE_START,
   FETCH_BANNER_MOVIE_SUCCESS,
   FETCH_BANNER_MOVIE_FAILURE,
-  SET_TRAILER_URL
+  FETCH_TRAILER_URL_START,
+  FETCH_TRAILER_URL_SUCCESS
 } from './moviesActionTypes';
 
 export const fetchMoviesStart = movieType => ({
@@ -24,21 +25,26 @@ export const fetchMoviesFailure = errMsg => ({
   payload: errMsg
 });
 
-export const fetchbannerMovieStart = () => ({
+export const fetchBannerMovieStart = () => ({
   type: FETCH_BANNER_MOVIE_START
 });
 
-export const fetchbannerMovieSuccess = movie => ({
+export const fetchBannerMovieSuccess = movie => ({
   type: FETCH_BANNER_MOVIE_SUCCESS,
   payload: movie
 });
 
-export const fetchbannerMovieFailure = errMsg => ({
+export const fetchBannerMovieFailure = errMsg => ({
   type: FETCH_BANNER_MOVIE_FAILURE,
   payload: errMsg
 });
 
-export const setTrailerurl = movie => ({
-  type: SET_TRAILER_URL,
-  payload: movie
+export const fetchTrailerUrlStart = movieTitle => ({
+  type: FETCH_TRAILER_URL_START,
+  payload: movieTitle
+});
+
+export const fetchUrlTrailerSuccess = url => ({
+  type: FETCH_TRAILER_URL_SUCCESS,
+  payload: url
 });

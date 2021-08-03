@@ -1,29 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
+import MainContainer from './containers/MainContainer';
 
-import MovieRowContainer from './containers/MovieRowContainer';
-import BannerContainer from './containers/BannerContainer';
-import Navbar from './components/Navbar/Navbar';
+export const movieCategories = [
+  { title: 'Trending Now', movieType: 'trending', isLargeRow: true },
+  { title: 'NETFLIX ORIGINALS', movieType: 'netflixOriginals' },
+  { title: 'Top Rated', movieType: 'topRated' },
+  { title: 'Action Movies', movieType: 'actionMovies' },
+  { title: 'Funny Movies', movieType: 'comedyMovies' },
+  { title: 'Horror Movies', movieType: 'horrorMovies' },
+  { title: 'Romantic Movies', movieType: 'romanceMovies' },
+  { title: 'Documentaries', movieType: 'documentaries' }
+];
 
-function App() {
-  const movies = [
-    { title: 'Trending Now', movieType: 'trending', isLargeRow: true },
-    { title: 'NETFLIX ORIGINALS', movieType: 'netflixOriginals' },
-    { title: 'Top Rated', movieType: 'topRated' },
-    { title: 'Action Movies', movieType: 'actionMovies' },
-    { title: 'Funny Movies', movieType: 'comedyMovies' },
-    { title: 'Horror Movies', movieType: 'horrorMovies' },
-    { title: 'Romantic Movies', movieType: 'romanceMovies' },
-    { title: 'Documentaries', movieType: 'documentaries' }
-  ];
+function App({ fetchMoviesStart }) {
+  useEffect(() => {
+    movieCategories.forEach(({ movieType }) => fetchMoviesStart(movieType));
+  }, [fetchMoviesStart]);
 
   return (
     <div className='app'>
-      <Navbar />
-      <BannerContainer />
-      {movies.map((m, i) => (
-        <MovieRowContainer key={i} {...m} />
-      ))}
+      <MainContainer />
     </div>
   );
 }

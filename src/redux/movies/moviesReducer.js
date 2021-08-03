@@ -5,7 +5,7 @@ import {
   FETCH_BANNER_MOVIE_START,
   FETCH_BANNER_MOVIE_SUCCESS,
   FETCH_BANNER_MOVIE_FAILURE,
-  SET_TRAILER_URL
+  FETCH_TRAILER_URL_SUCCESS
 } from './moviesActionTypes';
 
 const INITIAL_STATE = {
@@ -27,7 +27,7 @@ const moviesReducer = (state = INITIAL_STATE, action) => {
     case FETCH_MOVIES_FAILURE:
     case FETCH_BANNER_MOVIE_FAILURE:
       return { ...state, isFetched: false, errMessage: action.payload };
-    case SET_TRAILER_URL:
+    case FETCH_TRAILER_URL_SUCCESS:
       return { ...state, trailerUrl: action.payload };
     default:
       return state;

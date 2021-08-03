@@ -1,38 +1,15 @@
-import React, { useEffect } from 'react';
-import _ from 'lodash';
+import React from 'react';
 import './MovieRow.css';
-import { imgBaseUrl } from '../../baseurls';
-import YouTube from 'react-youtube';
-import movieTrailer from 'movie-trailer';
+import { imgBaseUrl } from '../../utils/baseurls';
 
 export default function MovieRow({
-  fetchMoviesStart,
-  setTrailerurl,
+  fetchTrailerUrlStart,
   title,
-  movieType,
   isLargeRow,
-  movies,
-  trailerUrl
+  movies
 }) {
-  const opts = {
-    height: '390',
-    width: '100%',
-    playerVars: {
-      autoplay: 1
-    }
-  };
-
-  useEffect(() => {
-    fetchMoviesStart(movieType);
-  }, [fetchMoviesStart, movieType]);
-
   const handleClick = movie => {
-    movieTrailer(movie?.name)
-      .then(url => {
-        const urlParams = new URLSearchParams(new URL(url).search);
-        setTrailerurl(urlParams.get('v'));
-      })
-      .catch(err => console.log(err.message));
+    fetchTrailerUrlStart(movie.title);
   };
 
   return (
@@ -41,23 +18,21 @@ export default function MovieRow({
       <div className='movieRow_posters'>
         {movies && movies.length
           ? movies.map(m => (
-              <img
-                className={`movieRow_poster ${
-                  isLargeRow && 'movieRow_posterLarge'
-                }`}
-                onClick={() => handleClick(m)}
-                key={m.id}
-                src={`${imgBaseUrl}${
-                  isLargeRow ? m.poster_path : m.backdrop_path
-                }`}
-                alt={m.name}
-              />
+              <a href='#trailer' key={m.id}>
+                <img
+                  className={`movieRow_poster ${
+                    isLargeRow && 'movieRow_posterLarge'
+                  }`}
+                  onClick={() => handleClick(m)}
+                  src={`${imgBaseUrl}${
+                    isLargeRow ? m.poster_path : m.backdrop_path
+                  }`}
+                  alt={m.name}
+                />
+              </a>
             ))
           : null}
       </div>
-      {!_.isEmpty(trailerUrl) ? (
-        <YouTube videoId={trailerUrl} opts={opts} />
-      ) : null}
     </div>
   );
 }
