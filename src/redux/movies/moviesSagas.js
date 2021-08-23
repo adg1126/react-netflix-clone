@@ -30,11 +30,11 @@ const request = {
   trending: `/trending/all/week?api_key=${TMDB_API_KEY}&language=en-US`,
   netflixOriginals: `/discover/tv?api_key=${TMDB_API_KEY}&with_networks=213`,
   topRated: `/movie/top_rated?api_key=${TMDB_API_KEY}&language=en-US`,
-  actionMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genre=28`,
-  comedyMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genre=35`,
-  horrorMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genre=27`,
-  romanceMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genre=10749`,
-  documentaries: `/discover/movie?api_key=${TMDB_API_KEY}&width_genre=99`
+  actionMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genres=28`,
+  comedyMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genres=35`,
+  horrorMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genres=27`,
+  romanceMovies: `/discover/movie?api_key=${TMDB_API_KEY}&with_genres=10749`,
+  documentaries: `/discover/movie?api_key=${TMDB_API_KEY}&width_genres=99`
 };
 
 function* fetchMoviesAsync({ payload: movieType }) {
